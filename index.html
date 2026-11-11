@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kushfolio | Portfolio</title>
+    <meta
+      name="description"
+      content="Personal portfolio website for Kush Mishra. Showcasing skills, projects, and contact information."
+    />
+    <style>
+      :root {
+        --bg: #0b1020;
+        --bg-2: #121a2d;
+        --surface: rgba(17, 24, 39, 0.8);
+        --surface-strong: #1b2438;
+        --text: #edf2ff;
+        --muted: #a8b3cf;
+        --primary: #7c9cff;
+        --primary-2: #9d7bff;
+        --accent: #6ee7c8;
+        --border: rgba(255, 255, 255, 0.08);
+        --shadow: 0 20px 50px rgba(19, 22, 33, 0.45);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(124, 156, 255, 0.2), transparent 30%),
+          radial-gradient(circle at bottom right, rgba(158, 123, 255, 0.18), transparent 30%),
+          var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      .container {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        backdrop-filter: blur(14px);
+        background: rgba(11, 16, 32, 0.72);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 72px;
+      }
+
+      .brand {
+        font-size: 1.3rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+      }
+
+      .brand span {
+        color: var(--accent);
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        color: var(--muted);
+      }
+
+      .nav-links a {
+        transition: color 0.2s ease;
+      }
+
+      .nav-links a:hover,
+      .nav-links a:focus-visible {
+        color: var(--text);
+      }
+
+      .nav-cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 18px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--primary), var(--primary-2));
+        color: white;
+        font-weight: 700;
+        box-shadow: var(--shadow);
+      }
+
+      .hero {
+        padding: 80px 0 60px;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        align-items: center;
+        gap: 42px;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        padding: 7px 12px;
+        border: 1px solid rgba(110, 231, 200, 0.35);
+        background: rgba(110, 231, 200, 0.08);
+        color: var(--accent);
+        border-radius: 999px;
+        font-size: 0.82rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 18px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(2.7rem, 5vw, 5rem);
+        line-height: 1.05;
+        letter-spacing: -0.04em;
+      }
+
+      .highlight {
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .lead {
+        max-width: 620px;
+        color: var(--muted);
+        font-size: 1.08rem;
+        margin: 18px 0 28px;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin-bottom: 28px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 14px 24px;
+        border-radius: 14px;
+        font-weight: 700;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .button:hover,
+      .button:focus-visible {
+        transform: translateY(-2px);
+      }
+
+      .button.primary {
+        background: linear-gradient(135deg, var(--primary), var(--primary-2));
+        color: white;
+        box-shadow: var(--shadow);
+      }
+
+      .button.secondary {
+        border: 1px solid var(--border);
+        color: var(--text);
+        background: rgba(255, 255, 255, 0.02);
+      }
+
+      .mini-stats {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        padding-top: 10px;
+      }
+
+      .mini-stats div {
+        min-width: 120px;
+      }
+
+      .mini-stats strong {
+        display: block;
+        font-size: 1.5rem;
+      }
+
+      .mini-stats span {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .profile-card {
+        position: relative;
+        padding: 24px;
+        border: 1px solid var(--border);
+        border-radius: 28px;
+        background: linear-gradient(180deg, rgba(18, 26, 45, 0.95), rgba(11, 16, 32, 0.9));
+        box-shadow: var(--shadow);
+      }
+
+      .avatar-wrap {
+        width: 100%;
+        aspect-ratio: 1;
+        border-radius: 24px;
+        overflow: hidden;
+        border: 1px solid var(--border);
+        background: linear-gradient(135deg, rgba(124, 156, 255, 0.4), rgba(110, 231, 200, 0.2));
+        display: grid;
+        place-items: center;
+        margin-bottom: 18px;
+      }
+
+      .avatar-placeholder {
+        width: 72%;
+        height: 72%;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #dfe9ff, #a4f6d8);
+        box-shadow: inset 0 0 30px rgba(0,0,0,0.15);
+        position: relative;
+      }
+
+      .avatar-placeholder::before {
+        content: "";
+        position: absolute;
+        width: 44%;
+        height: 44%;
+        border-radius: 50%;
+        background: rgba(11, 16, 32, 0.75);
+        left: 28%;
+        top: 20%;
+      }
+
+      .avatar-placeholder::after {
+        content: "";
+        position: absolute;
+        width: 60%;
+        height: 35%;
+        border-radius: 40px 40px 16px 16px;
+        background: rgba(11, 16, 32, 0.82);
+        left: 20%;
+        bottom: 16%;
+      }
+
+      .profile-info {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .profile-info h2 {
+        margin: 0;
+        font-size: 1.5rem;
+      }
+
+      .profile-info p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      section {
+        padding: 50px 0;
+      }
+
+      .section-head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 24px;
+      }
+
+      .section-head h3 {
+        margin: 0;
+        font-size: clamp(2rem, 3vw, 2.6rem);
+        letter-spacing: -0.03em;
+      }
+
+      .section-tag {
+        color: var(--accent);
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-size: 0.82rem;
+      }
+
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 28px;
+      }
+
+      .panel {
+        border: 1px solid var(--border);
+        background: rgba(17, 24, 39, 0.62);
+        border-radius: 24px;
+        padding: 26px;
+      }
+
+      .panel p {
+        margin-top: 0;
+        color: var(--muted);
+      }
+
+      .skills-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 22px;
+      }
+
+      .skills-list span {
+        padding: 9px 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(124, 156, 255, 0.4);
+        background: rgba(124, 156, 255, 0.08);
+        color: #dfe9ff;
+        font-size: 0.92rem;
+      }
+
+      .info-stack {
+        display: grid;
+        gap: 14px;
+      }
+
+      .info-box {
+        padding: 16px 18px;
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.02);
+      }
+
+      .info-box strong {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 0.82rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 22px;
+      }
+
+      .project-card {
+        padding: 22px;
+        border-radius: 22px;
+        background: linear-gradient(180deg, rgba(17, 24, 39, 0.95), rgba(11, 16, 32, 0.8));
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow);
+      }
+
+      .project-tag {
+        display: inline-block;
+        border-radius: 999px;
+        padding: 7px 10px;
+        background: rgba(110, 231, 200, 0.12);
+        border: 1px solid rgba(110, 231, 200, 0.38);
+        color: var(--accent);
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .project-card h4 {
+        margin: 18px 0 10px;
+        font-size: 1.5rem;
+      }
+
+      .project-card p {
+        color: var(--muted);
+        margin: 0 0 18px;
+      }
+
+      .project-links {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .project-links a {
+        color: #dfe9ff;
+        font-weight: 700;
+      }
+
+      .contact-box {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 26px 28px;
+        border-radius: 22px;
+        border: 1px solid var(--border);
+        background: linear-gradient(135deg, rgba(124, 156, 255, 0.18), rgba(110, 231, 200, 0.12));
+      }
+
+      .contact-box p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .site-footer {
+        padding: 26px 0 54px;
+        color: var(--muted);
+        text-align: center;
+      }
+
+      @media (max-width: 900px) {
+        .hero-grid,
+        .about-grid,
+        .projects-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .nav-links {
+          display: none;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .hero {
+          padding-top: 52px;
+        }
+
+        .section-head,
+        .contact-box {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .nav {
+          min-height: 64px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <a href="#home" class="brand">Kush<span>folio</span></a>
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="#about">About</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <a href="#contact" class="nav-cta">Let’s Connect</a>
+      </div>
+    </header>
+
+    <main id="home">
+      <section class="hero">
+        <div class="container hero-grid">
+          <div>
+            <div class="eyebrow">Available for work</div>
+            <h1>
+              Hello, I’m <span class="highlight">Kush Mishra</span><br />
+              Building digital experiences.
+            </h1>
+            <p class="lead">
+              I design and build clean, engaging websites and applications that blend creativity,
+              usability, and performance.
+            </p>
+            <div class="hero-actions">
+              <a href="#projects" class="button primary">View Projects</a>
+              <a href="#contact" class="button secondary">Hire Me</a>
+            </div>
+            <div class="mini-stats" aria-label="key stats">
+              <div>
+                <strong>2+</strong>
+                <span>Years Experience</span>
+              </div>
+              <div>
+                <strong>12+</strong>
+                <span>Projects</span>
+              </div>
+              <div>
+                <strong>100%</strong>
+                <span>Passion</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="profile-card" aria-label="profile summary">
+            <div class="avatar-wrap">
+              <div class="avatar-placeholder" aria-hidden="true"></div>
+            </div>
+            <div class="profile-info">
+              <h2>Kush Mishra</h2>
+              <p>Frontend Developer &amp; Digital Designer</p>
+              <p>Focused on building modern, responsive, and user-first experiences.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="about">
+        <div class="container">
+          <div class="section-head">
+            <div class="section-tag">About</div>
+            <h3>Creative problem solver.</h3>
+          </div>
+
+          <div class="about-grid">
+            <div class="panel">
+              <p>
+                I’m a developer who enjoys turning ideas into polished digital products. My work is
+                rooted in clear design thinking, efficient code, and a strong focus on user experience.
+              </p>
+              <p>
+                From portfolio websites to interactive interfaces, I build experiences that are not only
+                visually appealing but also easy to use and maintain.
+              </p>
+              <div class="skills-list" aria-label="professional skills">
+                <span>HTML</span>
+                <span>CSS</span>
+                <span>JavaScript</span>
+                <span>React</span>
+                <span>UI/UX</span>
+                <span>Responsive Design</span>
+                <span>Figma</span>
+                <span>Web Development</span>
+              </div>
+            </div>
+
+            <div class="info-stack">
+              <div class="info-box">
+                <strong>Location</strong>
+                India
+              </div>
+              <div class="info-box">
+                <strong>Focus</strong>
+                Frontend Development, Web Design, Portfolio Experiences
+              </div>
+              <div class="info-box">
+                <strong>Favorite Stack</strong>
+                HTML, CSS, JavaScript, React
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="projects">
+        <div class="container">
+          <div class="section-head">
+            <div class="section-tag">Work</div>
+            <h3>Selected projects.</h3>
+          </div>
+
+          <div class="projects-grid">
+            <article class="project-card">
+              <span class="project-tag">Portfolio</span>
+              <h4>Personal Brand Site</h4>
+              <p>A clean and modern portfolio showcasing experience, projects, and contact details.</p>
+              <div class="project-links">
+                <a href="#">Live Demo</a>
+                <a href="#">Source</a>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <span class="project-tag">Landing Page</span>
+              <h4>Startup Website</h4>
+              <p>A startup-focused landing page built to communicate value clearly and convert visitors.</p>
+              <div class="project-links">
+                <a href="#">Live Demo</a>
+                <a href="#">Source</a>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <span class="project-tag">UI Design</span>
+              <h4>Dashboard Concept</h4>
+              <p>A sleek analytics dashboard interface with a focus on intuitive data presentation.</p>
+              <div class="project-links">
+                <a href="#">Live Demo</a>
+                <a href="#">Source</a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div class="container">
+          <div class="contact-box">
+            <div>
+              <div class="section-tag">Contact</div>
+              <h3>Let’s build something amazing.</h3>
+            </div>
+            <a href="mailto:kush@example.com" class="button primary">kush@example.com</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">© <span id="year"></span> Kushfolio. All rights reserved.</div>
+    </footer>
+
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
